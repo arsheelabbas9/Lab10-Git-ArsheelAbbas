@@ -1,0 +1,35 @@
+000: 40000113   addi  sp, zero, 1024
+004: 20000437   lui   s0, 0x20000
+008: 00042023   sw    zero, 0(s0)
+00C: 00842283   lw    t0, 8(s0)
+010: FE029CE3   bne   t0, zero, WAIT_STATE
+014: 00442503   lw    a0, 4(s0)
+018: FE050AE3   beq   a0, zero, WAIT_LOOP
+01C: 00A42023   sw    a0, 0(s0)
+020: 008000EF   jal   ra, COUNTDOWN
+024: FE5FF06F   jal   zero, WAIT_STATE
+028: FF010113   addi  sp, sp, -16
+02C: 00112623   sw    ra, 12(sp)
+030: 00912423   sw    s1, 8(sp)
+034: 00050493   addi  s1, a0, 0
+038: 00942023   sw    s1, 0(s0)
+03C: 00048A63   beq   s1, zero, CD_DONE
+040: 024000EF   jal   ra, DELAY
+044: 00051863   bne   a0, zero, CD_EXIT
+048: FFF48493   addi  s1, s1, -1
+04C: FEDFF06F   jal   zero, CD_LOOP
+050: 00000513   addi  a0, zero, 0
+054: 00812483   lw    s1, 8(sp)
+058: 00C12083   lw    ra, 12(sp)
+05C: 01010113   addi  sp, sp, 16
+060: 00008067   jalr  zero, 0(ra)
+064: 002622B7   lui   t0, 0x262
+068: 5A028293   addi  t0, t0, 0x5A0
+06C: 00842303   lw    t1, 8(s0)
+070: 00031A63   bne   t1, zero, DLY_RST
+074: FFF28293   addi  t0, t0, -1
+078: FE029AE3   bne   t0, zero, DLY_LOOP
+07C: 00000513   addi  a0, zero, 0
+080: 00008067   jalr  zero, 0(ra)
+084: 00100513   addi  a0, zero, 1
+088: 00008067   jalr  zero, 0(ra)
